@@ -1,0 +1,110 @@
+﻿@model IEnumerable<NeiR.DATA.EF.Models.Weapon>
+
+@{
+    ViewData["Title"] = "Weapons";
+}
+
+<section class="product_section layout_padding">
+    <div >
+        <div class="heading_container heading_center">
+            <h2 style="color: white;">
+                Our <span>Weapons</span>
+            </h2>
+        </div>
+
+        <p align="center">
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="Create" class="btn btn-dark">Add New Gadget</a>
+            }
+            <a asp-action="WeaponShop" class="btn btn-dark">Shop View</a>
+        </p>
+
+<table class="Design table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StockAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeaponImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ability)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Damage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockAmount)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.WeaponImage)*@
+                    <img src="~/img/@item.WeaponImage" class="img-fluid rounded-sm shadow-lg" alt="@item.Description">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ability.AbilityGiven)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.WeaponType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Damage.DamageRange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock.StockStatus)
+            </td>
+            <td>
+                 @if (User.IsInRole("Admin"))
+                            {
+                                
+                <a style="margin: 2px !important" asp-action="Edit" asp-route-id="@item.WeaponId" class="btn btn-dark">Edit</a> 
+                @*<a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |*@
+
+                @if (item.OrderProducts.Count() == 0) //no related records - ok to delete
+                    {
+                                    <a style="margin: 2px !important" asp-action="Delete" asp-route-id="@item.WeaponId" class="btn btn-dark">Delete</a>
+                                }
+                    else
+                    {
+                        <a style="margin: 2px !important" disabled="disabled" class="text-danger text-decoration-line-through"
+                           title="Cannot delete this Gadget as it is referenced by an Order">Delete</a>
+                    }
+                            }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+</section>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<NeiR.DATA.EF.Models.Damage>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-dark d-inline-flex btn-lg" style="margin-left: 6.3% !important;" asp-action="Create">Create New</a>
+</p>
+<table class="Design" style="width: 100% !important; margin-left: auto!important; margin-right: auto !important;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MinDamg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxDamg)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinDamg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDamg)
+            </td>
+            <td>
+                <a style="margin: 3em !important;" asp-action="Edit" asp-route-id="@item.DamageId">Edit</a> |
+                @*<a asp-action="Details" asp-route-id="@item.DamageId">Details</a> |*@
+                <a  style="margin: 3em !important;" asp-action="Delete" asp-route-id="@item.DamageId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

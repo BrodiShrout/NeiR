@@ -1,0 +1,86 @@
+﻿@model NeiR.DATA.EF.Models.Weapon
+
+@{
+    ViewData["Title"] = "Add A New Weapon";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@*<h4>Weapon</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AbilityId" class="control-label"></label>
+                <select asp-for="AbilityId" class ="form-control" asp-items="ViewBag.AbilityId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DamageId" class="control-label"></label>
+                <select asp-for="DamageId" class ="form-control" asp-items="ViewBag.DamageId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockAmount" class="control-label"></label>
+                <input asp-for="StockAmount" class="form-control" />
+                <span asp-validation-for="StockAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <img src="~/img/noimage.png" id="Img" class="img-fluid d-block" style="max-height: 500px" />
+                <label asp-for="WeaponImage" class="control-label"></label>
+                @*<input asp-for="ProductImage" class="form-control" />*@
+                <input type="file" asp-for="UploadedImage" id="file-btn" class="form-control" />
+                <span asp-validation-for="WeaponImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockId" class="control-label"></label>
+                <select asp-for="StockId" class ="form-control" asp-items="ViewBag.StockId"></select>
+            </div>
+            <div class="form-group">
+                <input style="margin-left: 0 !important; margin-right: 2% !important;" type="submit" value="Create" class="btn btn-primary d-inline-flex btn-lg" />
+                <a style="margin-left: 0 !important;" asp-action="TiledProducts" class="btn btn-secondary d-inline-flex btn-lg">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        document.getElementById("file-btn").onchange = function (evt) {
+            var tgt = evt.target || window.event.srcElement,
+                files = tgt.files;
+
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    document.getElementById("img").src = fr.result;
+                }
+                fr.readAsDataURL(files[0]);
+            }
+        }
+    </script>
+}

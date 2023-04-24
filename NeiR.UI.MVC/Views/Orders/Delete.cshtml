@@ -1,0 +1,58 @@
+﻿@model NeiR.DATA.EF.Models.Order
+
+@{
+    ViewData["Title"] = "Delete " + Model.OrderId;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3 class="Design" style=" margin-left: 20px !important; border:solid; border-color: black; width: 50% !important; text-align:center !important;">Are you sure you want to delete @Model.OrderId?</h3>
+<p class="bg-warning text-danger d-inline-block p-3" style="margin-left: 1.5% !important;">This action <em>cannot</em> be undone.</p>
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ShipToName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ShipToName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ShipCity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ShipCity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ShipState)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ShipState)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ShipZip)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ShipZip)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.User.UserId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OrderId" />
+        <input style="margin-left: 3% !important;" type="submit" value="Delete Forever" class="btn btn-danger d-inline-flex btn-lg" />
+        <a asp-action="Index" class="btn btn-dark d-inline-flex btn-lg">Back to List</a>
+    </form>
+</div>

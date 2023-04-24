@@ -1,0 +1,167 @@
+﻿@model IEnumerable<NeiR.DATA.EF.Models.Ability>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+@*AShop*@
+@*<a asp-action="Create">Create New</a>*@
+<div class="row">
+    <div align="center" class="offset-3 col-md-6">
+        <button id="ToggleAbilityCreate" class="btn btn-dark">
+            Add New Ability
+        </button>
+    </div>
+</div>
+</p>
+
+@*The div below contains the partial view for our category create form. we will toggel visability of the div using JS and the button above*@
+
+<div id="AbiliyCreate">
+    <partial name="AbiliyCreate" model="new NeiR.DATA.EF.Models.Ability()" />
+</div>
+
+@* We will need to create a container to display status messages to the user.*@
+
+<div class="row">
+    <div class="offset-3 col-md-6">
+        <div id="MessageContent" class="text-center"></div>
+    </div>
+</div>
+
+@*We are adding an ID attribute to the table below for easy selection via JS and will selecte it using jQuery
+    AShop
+*@
+<table class="Design" id="AbilityTable" style="margin-left: auto!important; margin-right: auto !important; padding: 5em !important;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AbilityGiven)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.AbilityGiven)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AbilityId">Edit</a> |
+                @*<a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |*@
+                    <button type="button" class="DetailsLink btn btn-link" id="@item.AbilityId" data-toggle="modal" data-target="#AbilityGiven">
+                    Details
+                </button> |
+
+
+                @*<a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>*@
+                    <a data-ajax="true" data-ajax-confirm="Are you sure you want to delete @item.AbilityGiven?"
+                data-ajax-failure="deleteFailed" data-ajax-success="deleteConfirm" data-ajax-method="POST"
+                href="~/Abilities/AjaxDelete/@item.AbilityId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@*Here we will create a bootstrap modal to display Category Details*@
+<div class="modal fade" id="AbilityDetails" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+            </div>
+            <div class="modal-body" id="DetailsBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*We will need to create a secton for script so we can write the script we need so it can execute only when we are on this view in the browser*@
+@section scripts{
+
+    <script>
+
+        /************************** AJAX DELETE **************************/
+
+        /*Seccess AShop*/
+        function deleteConfirm(response, status, data) {
+
+            //Remove the row form the table
+            let rowId = "#Ability" + response.id;
+
+            $("#AbilityTable").find(rowId).remove();
+
+            //Display a status message
+            $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "</div>");
+
+        }
+
+        //Fail AShop
+        function deleteFailed(response, status, data) {
+
+            //Display status message
+            $("#MessageContent").html("<div class='alert alert-danger'> Delete unsuccessful </div>");
+
+        }
+
+        /************************** AJAX Details **************************/
+        $(".DetailsLink").on("click", function (e) {
+
+            let catId = $(this).attr("id");
+
+            $("#AbilityTable .modal-body").load("/Abilities/AbilityDetails/" + catId);
+
+        });
+
+        /************************** AJAX Create **************************/
+        $("#AbiliyCreate").hide(); //On page load, automatically hide the create form
+
+        $("#ToggleAbilityCreate").on("click", function () {
+
+            $("#AbiliyCreate").toggle(); //Toggles visibility of the create form
+
+        });
+
+
+        $("#AbilityCreateForm").on("submit", function (e) {
+
+            e.preventDefault();
+
+            let formData = $(this).serializeArray();
+
+            console.log(formData);
+
+
+            $.ajax({
+
+                url: "/Abilities/AjaxCreate",
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                error: function (e) {
+                    $("#MessageContent").html("<div class='alert alert-danger'>There was a problem.</div>");
+                },
+                success: function (ability) {
+                    $("#MessageContent").html("<div class='alert alert-success'>Ability added successfully!</div>");
+                    $("#AbilityCreateForm")[0].reset();
+                    $(function () {
+                        let row = '<tr id="Ability-' + ability.abilityId + '"><td>' + ability.abilityGiven
+                            + '</td><td>Refresh the page for options</td></tr>';
+                        $("#AbilityTable").append(row);
+                        $("#AbiliyCreate").hide();
+                    });
+                },
+
+            });
+
+        })
+    </script>
+
+}

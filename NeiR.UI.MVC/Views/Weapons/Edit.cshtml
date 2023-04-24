@@ -1,0 +1,75 @@
+﻿@model NeiR.DATA.EF.Models.Weapon
+
+@{
+    ViewData["Title"] = "Edit " + Model.Name;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@*<h4>Weapon</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WeaponId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AbilityId" class="control-label"></label>
+                <select asp-for="AbilityId" class="form-control" asp-items="ViewBag.AbilityId"></select>
+                <span asp-validation-for="AbilityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DamageId" class="control-label"></label>
+                <select asp-for="DamageId" class="form-control" asp-items="ViewBag.DamageId"></select>
+                <span asp-validation-for="DamageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockAmount" class="control-label"></label>
+                <input asp-for="StockAmount" class="form-control" />
+                <span asp-validation-for="StockAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img src="~/img/@Model.WeaponImage" id="Img" class="img-fluid d-block" style="max-height: 500px;" />
+
+                <label asp-for="WeaponImage" class="control-label"></label>
+                @*<input asp-for="ProductImage" class="form-control" />*@
+                <input type="file" asp-for="UploadedImage" id="file-btn" class="form-control" />
+                <span asp-validation-for="WeaponImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StockId" class="control-label"></label>
+                <select asp-for="StockId" class="form-control" asp-items="ViewBag.StockId"></select>
+                <span asp-validation-for="StockId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input style="margin-left: 0 !important; margin-right: 2% !important;" type="submit" value="Save" class="btn btn-primary d-inline-flex btn-lg" />
+                <a style="margin-left: 0 !important;" asp-action="Index" class="btn btn-primary d-inline-flex btn-lg">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

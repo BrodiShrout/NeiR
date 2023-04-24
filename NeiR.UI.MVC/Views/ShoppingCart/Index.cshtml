@@ -1,0 +1,131 @@
+﻿@model Dictionary<int, NeiR.UI.MVC.Models.CartItemViewModel>
+@{
+    ViewData["Title"] = "Cart";
+    decimal? cartTotal = 0;
+}
+
+<section class="product_section layout_padding">
+    <div class="container">
+        <div class="heading_container heading_center" style="color: white;">
+            <h2>
+                Shop <span>Gadgets</span>
+            </h2>
+
+            <p align="center">
+                <a asp-action="WeaponShop" asp-controller="Weapons" class="btn btn-primary">
+                    Back to Shopping
+                    </a>
+            </p>
+
+        </div>
+
+        @if (Model.Count == 0)
+        {
+            <p class="alert alert-warning text-center">
+                @ViewBag.Message
+            </p>
+        }
+        else
+        {
+               <table class="table">
+                   <thead>
+                       <tr>
+                           <th>Product</th>
+                           <th>Quantity</th>
+                           <th>Name</th>
+                           <th>Price</th>
+                           <th>Total</th>
+                           <th></th> @*Intentionally left blank for actions*@
+                       </tr>
+                   </thead>
+                   <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @*
+                                    To access the ProductImage info, we need to go into our Dictionary entry, loook at the value (CartItemViewModel), then look at the Product, and then isolate the ProductImage property.
+                                *@
+                                <img src="~/img/@item.Value.Weapons.WeaponImage" alt="@item.Value.Weapons.Name" style="height: 100px !important; width: 50% !important" />
+                            </td>
+                            <td>
+
+                                <!-- TODID: Add an update button -->
+                                <form asp-action="UpdateCart">
+
+                                    <input type="hidden" name="weaponId" value="@item.Key" />
+                                    <input type="text" name="qty" value="@item.Value.Qty" class="form-control d-block mx-auto text-center w-50"/>
+
+                                    <input type="submit" value="Update Cart" class="btn btn-primary btn" />
+
+                                </form>
+
+                            </td>
+                            <td>
+                                <p>
+                                    @item.Value.Weapons.Name
+                                </p>
+                            </td>     
+                            <td>
+                                <p>
+                                    @string.Format($"{item.Value.Weapons.Price:c}")
+                                </p>
+                            </td>
+                            <td>
+                                @{
+                                    //Calculate the line total and the cart total
+                                    //The line total will be displayed here for each line item
+                                    //The cart total will be displayed after all of the line items
+                                    decimal? lineTotal = item.Value.Qty * item.Value.Weapons.Price;//Total for 1 line item
+                                    cartTotal += lineTotal; //Total for ALL items
+                                }
+                                @String.Format($"{lineTotal:c}")
+                            </td>
+                            <td>
+                                <a asp-action="RemoveFromCart" asp-asp-controller="ShoppingCart" asp-route-id="@item.Key" class="btn btn-danger">
+                                    Remove from Cart
+                                </a>
+
+                                <!-- TODID: Update Remove from Cart button -->
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+               </table>
+
+               <div class="alert alert-success text-center">
+                   <p>
+                       Your total before taxes and shipping is @string.Format($"{cartTotal:c}").
+                   </p>
+
+                   @if (User.Identity.IsAuthenticated)
+                {
+                    @*submit button*@
+                    <a asp-action="SubmitOrder" class="btn btn-primary">
+                        Submit Order
+                    </a>
+
+                    <!-- TODID: Update Submit Order button -->
+                }
+                else
+                {
+                        <!-- BONUS CHALLENGE: Create a link in the login page and use the "logged in"" below as the text for the link.-->
+
+                        <p>
+                            To place this order you must be <a asp-action="Identity" asp-controller="/Account/Loggin"> logged in</a>.
+                        </p>
+                        <button disabled="disabled" class="btn btn-primary">
+                            Submit Order
+                        </button>
+                }
+
+
+
+               </div>
+
+
+        }
+
+    </div>
+</section>

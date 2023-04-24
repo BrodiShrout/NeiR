@@ -1,0 +1,35 @@
+﻿@model NeiR.DATA.EF.Models.Damage
+
+@{
+    ViewData["Title"] = "Delete " + Model.DamageId;
+}
+
+<h1>@ViewData["Title"]
+</h1>
+<h3 class="container" style=" margin-left: 20px !important; width: 50% !important; text-align:center !important; padding: 1% !important;">Are you sure you want to delete @Model.DamageId?</h3>
+<p class="bg-warning text-danger d-inline-block p-3" style="margin-left: 1.5% !important;">This action <em>cannot</em> be undone.</p>
+
+<div>
+    @*<h4>Damage</h4>*@
+    <hr />
+    <dl class="Design row" style="margin-left: auto!important; margin-right: auto !important; border:solid; border-color: black; text-align: center !important;">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MinDamg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MinDamg)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaxDamg)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaxDamg)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="DamageId" />
+        <input style="margin-left: 3% !important;" type="submit" value="Delete Forever" class="btn btn-danger d-inline-flex btn-lg" />
+        <a asp-action="Index" class="btn btn-primary d-inline-flex btn-lg">Back to List</a>
+    </form>
+</div>

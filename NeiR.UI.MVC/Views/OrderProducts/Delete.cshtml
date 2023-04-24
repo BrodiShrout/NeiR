@@ -1,0 +1,46 @@
+﻿@model NeiR.DATA.EF.Models.OrderProduct
+
+@{
+    ViewData["Title"] = "Delete " + Model.OrderProductsId;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3 class="Design" style=" margin-left: 20px !important; border:solid; border-color: black; width: 50% !important; text-align:center !important;">Are you sure you want to delete @Model.OrderProductsId?</h3>
+<p class="bg-warning text-danger d-inline-block p-3" style="margin-left: 1.5% !important;">This action <em>cannot</em> be undone.</p>
+<div>
+    @*<h4>OrderProduct</h4>*@
+    <hr />
+    <dl class="Design row" style="margin-left: auto!important; margin-right: auto !important; border:solid; border-color: black; text-align: center !important;">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Order)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Order.ShipCity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Weapon)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Weapon.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OrderProductsId" />
+        <input style="margin-left: 3% !important;" type="submit" value="Delete Forever" class="btn btn-danger d-inline-flex btn-lg" />
+        <a asp-action="Index" class="btn btn-primary d-inline-flex btn-lg">Back to List</a>
+    </form>
+</div>

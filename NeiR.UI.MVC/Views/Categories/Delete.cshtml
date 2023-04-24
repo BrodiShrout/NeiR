@@ -1,0 +1,28 @@
+﻿@model NeiR.DATA.EF.Models.Category
+
+@{
+    ViewData["Title"] = "Delete " + Model.WeaponType;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3 class="Design" style=" margin-left: 20px !important; border:solid; border-color: black; width: 50% !important; text-align:center !important;">Are you sure you want to delete @Model.WeaponType?</h3>
+<p class="bg-warning text-danger d-inline-block p-3" style="margin-left: 1.5% !important;">This action <em>cannot</em> be undone.</p>
+<div>
+    @*<h4>Category</h4>*@
+    <hr />
+    <dl class="Design row" style="margin-left: auto!important; margin-right: auto !important; border:solid; border-color: black; text-align: center !important;">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.WeaponType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.WeaponType)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CategoryId" />
+        <input style="margin-left: 3% !important;" type="submit" value="Delete Forever" class="btn btn-danger d-inline-flex btn-lg" />
+        <a asp-action="Index" class="btn btn-dark d-inline-flex btn-lg">Back to List</a>
+    </form>
+</div>

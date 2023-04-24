@@ -1,0 +1,33 @@
+﻿@model NeiR.DATA.EF.Models.Category
+
+@{
+    ViewData["Title"] = "Add A New Weapon Type";
+}
+
+
+<h1 class="title">@ViewData["Title"]</h1>
+
+
+@*<h4>Category</h4>*@
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="WeaponType" class="control-label"></label>
+                <input asp-for="WeaponType" class="form-control" />
+                <span asp-validation-for="WeaponType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input style="margin-left: 0 !important; margin-right: 2% !important;" type="submit" value="Save" class="btn btn-primary d-inline-flex btn-lg" />
+                <a style="margin-left: 0 !important;" asp-action="Index" class="btn btn-dark d-inline-flex btn-lg">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

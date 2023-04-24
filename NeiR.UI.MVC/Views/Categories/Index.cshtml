@@ -1,0 +1,38 @@
+﻿@model IEnumerable<NeiR.DATA.EF.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-dark d-inline-flex btn-lg" style="margin-left: 6.3% !important;" asp-action="Create">Create New</a>
+</p>
+
+<table class="Design" style="width: 100% !important; margin-left: auto!important; margin-right: auto !important;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WeaponType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeaponType)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
+                    @*<a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |*@
+                    <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

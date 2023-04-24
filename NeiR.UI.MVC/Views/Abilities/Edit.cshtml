@@ -1,0 +1,32 @@
+﻿@model NeiR.DATA.EF.Models.Ability
+
+@{
+    ViewData["Title"] = "Edit " + Model.AbilityGiven;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@*<h4>Ability</h4>*@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AbilityId" />
+            <div class="form-group">
+                <label asp-for="AbilityGiven" class="control-label"></label>
+                <input asp-for="AbilityGiven" class="form-control" />
+                <span asp-validation-for="AbilityGiven" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input style="margin-left: 0 !important; margin-right: 2% !important;" type="submit" value="Save" class="btn btn-dark d-inline-flex btn-lg" />
+                <a style="margin-left: 0 !important;" asp-action="Index" class="btn btn-dark d-inline-flex btn-lg">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
