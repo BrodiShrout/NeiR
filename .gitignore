@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /NeiR.UI.MVC/appsettings.json
+
+/NeiR.UI.MVC/folder/_Archive/
