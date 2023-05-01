@@ -102,7 +102,8 @@ namespace NeiR.DATA.EF.Models/*Metadata*/
         public int OrderId { get; set; }
 
         //no metadata needed for FKs - as they are represented in a View by a dropdown list
-        public string UserId { get; set; } = null!;
+        public string? UserId { get; set; }
+
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]//0:d => MM/dd/yyyy
         [Display(Name = "Order Date")]
         [Required]
@@ -120,7 +121,7 @@ namespace NeiR.DATA.EF.Models/*Metadata*/
 
         [StringLength(2)]
         [Display(Name = "State")]
-        public string? ShipState { get; set; }
+        public string? ShipState { get; set; } = null!;
 
         [StringLength(5)]
         [Display(Name = "Zip")]

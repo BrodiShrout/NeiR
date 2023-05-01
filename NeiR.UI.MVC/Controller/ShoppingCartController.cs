@@ -246,8 +246,8 @@ namespace NeiR.UI.MVC.Controllers
             //Create the order object
             Order o = new()
             {
-                OrderDate = DateTime.Now,
                 UserId = userId,
+                OrderDate = DateTime.Now,
                 ShipCity = ud.City,
                 ShipToName = ud.FirstName + " " + ud.LastName,
                 ShipState = ud.State,

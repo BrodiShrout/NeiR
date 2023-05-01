@@ -14,7 +14,7 @@
             <div class="row px-4 px-lg-5">
                 <div class="col-lg-6">
                     <p class="p1 text-muted small text-uppercase mb-2">New Weapon Ability</p>
-                    <h2 class="h7 text-uppercase mb-3">20% off on new Stun Up</h2><a class="btn btn-dark" asp-action="Shop" asp-controller="Notes">Browse collections</a>
+                    <h2 class="h7 text-uppercase mb-3">20% off on new Stun Up</h2><a class="btn btn-dark" asp-action="WeaponShop" asp-controller="Weapons">Browse collections</a>
                 </div>
             </div>
         </div>
@@ -27,14 +27,14 @@
         </header>
         <div class="row" style="background-color: transparent !important">
             <div class="col-md-4">
-                <a class="category-item" asp-action="Index" asp-controller="Products"><img class="img-fluid" src="~/img/Large.png" alt="Picture of the Beastlord" /><strong class="category-item-title">Long Swords</strong></a>
+                <a class="category-item" asp-action="WeaponShop" asp-controller="Weapons"><img class="img-fluid" src="~/img/Large.png" alt="Picture of the Beastlord" /><strong class="category-item-title">Long Swords</strong></a>
             </div>
             <div class="col-md-4">
-                <a class="category-item mb-4" asp-action="Index" asp-controller="Products"><img class="img-fluid" src="~/img/SmallSwords.jpg" alt="Picture of the Pheonix Dagger" /><strong class="category-item-title">Short Swords</strong></a>
-                <a class="category-item" asp-action="Index" asp-controller="Products"><img class="img-fluid" src="~/img/Combat.png" alt="Picture of Emil Head" /><strong class="category-item-title">Combat Bracers</strong></a>
+                <a class="category-item mb-4" asp-action="WeaponShop" asp-controller="Weapons"><img class="img-fluid" src="~/img/SmallSwords.jpg" alt="Picture of the Pheonix Dagger" /><strong class="category-item-title">Short Swords</strong></a>
+                <a class="category-item" asp-action="WeaponShop" asp-controller="Weapons"><img class="img-fluid" src="~/img/Combat.png" alt="Picture of Emil Head" /><strong class="category-item-title">Combat Bracers</strong></a>
             </div>
             <div class="col-md-4">
-                <a class="category-item" asp-action="Index" asp-controller="Products"><img class="img-fluid" src="~/img/Spear.png" alt="Picture of the Type-440 Lance" /><strong class="category-item-title">Spear</strong></a>
+                <a class="category-item" asp-action="WeaponShop" asp-controller="Weapons"><img class="img-fluid" src="~/img/Spear.png" alt="Picture of the Type-440 Lance" /><strong class="category-item-title">Spear</strong></a>
             </div>
         </div>
 
@@ -97,7 +97,7 @@
         </div>
     </section>
     <!-- NEWSLETTER-->
-    <section class="py-5 Design">
+    <section class="py-5 container">
         <div class="p-0">
             <div class="row gy-3">
                 <div class="col-lg-6">

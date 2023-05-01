@@ -7,22 +7,9 @@
 <h1>Index</h1>
 
 <p>
-@*AShop*@
-@*<a asp-action="Create">Create New</a>*@
-<div class="row">
-    <div align="center" class="offset-3 col-md-6">
-        <button id="ToggleAbilityCreate" class="btn btn-dark">
-            Add New Ability
-        </button>
-    </div>
-</div>
+    <a class="btn btn-dark d-inline-flex btn-lg" style="margin-left: 6.3% !important;" asp-action="Create">Create New</a>
 </p>
 
-@*The div below contains the partial view for our category create form. we will toggel visability of the div using JS and the button above*@
-
-<div id="AbiliyCreate">
-    <partial name="AbiliyCreate" model="new NeiR.DATA.EF.Models.Ability()" />
-</div>
 
 @* We will need to create a container to display status messages to the user.*@
 
@@ -61,7 +48,7 @@
                 @*<a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>*@
                     <a data-ajax="true" data-ajax-confirm="Are you sure you want to delete @item.AbilityGiven?"
                 data-ajax-failure="deleteFailed" data-ajax-success="deleteConfirm" data-ajax-method="POST"
-                href="~/Abilities/AjaxDelete/@item.AbilityId">Delete</a>
+                       href="~/Abilities/AjaxDelete/@item.AbilityId">Delete</a>
             </td>
         </tr>
 }
@@ -119,49 +106,6 @@
             $("#AbilityTable .modal-body").load("/Abilities/AbilityDetails/" + catId);
 
         });
-
-        /************************** AJAX Create **************************/
-        $("#AbiliyCreate").hide(); //On page load, automatically hide the create form
-
-        $("#ToggleAbilityCreate").on("click", function () {
-
-            $("#AbiliyCreate").toggle(); //Toggles visibility of the create form
-
-        });
-
-
-        $("#AbilityCreateForm").on("submit", function (e) {
-
-            e.preventDefault();
-
-            let formData = $(this).serializeArray();
-
-            console.log(formData);
-
-
-            $.ajax({
-
-                url: "/Abilities/AjaxCreate",
-                type: "POST",
-                data: formData,
-                dataType: "json",
-                error: function (e) {
-                    $("#MessageContent").html("<div class='alert alert-danger'>There was a problem.</div>");
-                },
-                success: function (ability) {
-                    $("#MessageContent").html("<div class='alert alert-success'>Ability added successfully!</div>");
-                    $("#AbilityCreateForm")[0].reset();
-                    $(function () {
-                        let row = '<tr id="Ability-' + ability.abilityId + '"><td>' + ability.abilityGiven
-                            + '</td><td>Refresh the page for options</td></tr>';
-                        $("#AbilityTable").append(row);
-                        $("#AbiliyCreate").hide();
-                    });
-                },
-
-            });
-
-        })
     </script>
 
 }
